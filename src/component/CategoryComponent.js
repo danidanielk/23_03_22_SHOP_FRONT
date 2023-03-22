@@ -1,6 +1,9 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 function CategoryComponent() {
+
+
   const onDesk = () => {
     window.location.assign("/list/?category=desk");
   };
@@ -17,6 +20,10 @@ function CategoryComponent() {
     window.location.assign("/list/?category=sofa");
   };
 
+
+
+ 
+
   return (
     <>
       <>
@@ -26,6 +33,9 @@ function CategoryComponent() {
               <div className="flex flex-col justify-center items-center ">
                 <h1 className="text-3xl xl:text-4xl font-semibold leading-7 xl:leading-9 text-gray-800 dark:text-white">
                   Shop By Category
+                  {/*  */}
+               
+                  {/*  */}
                 </h1>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-x-4 md:gap-x-8 w-full">

@@ -8,16 +8,17 @@ function ProductDetailComponent() {
   };
 
   const onSave = (productId) => {
-    axios.get("http://localhost:8080/member/cart",{withCredentials:true})
+    axios.get(`http://localhost:8080/product/product/add/${productId}`,{withCredentials:true})
     .then((response)=>{
       const memberId = response.data
       console.log(memberId,productId)
-      window.location.assign(`/cart/${productId}/${memberId}`);
+      alert("등록 완료 ")
+      window.location.assign(`/productdetail/?productId=${productId}`);
     })
     .then((error)=>{
       console.log(error)
-      alert("로그인 해주세요")
-      window.location.assign("/login")
+      // alert("로그인 해주세요")
+      // window.location.assign("/login")
     })
   };
 
