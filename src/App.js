@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CategoryComponent from "./component/CategoryComponent";
+import ListComponent from "./component/ListComponent";
+import LoginComponent from "./component/LoginComponent";
+import Nev from "./component/Nev";
+import SigninComponent from "./component/SigninComponent";
+import ChatComponent from "./component/ChatComponent";
+import OrderCheckList from "./component/OrderCheckList";
+import BoardInputComponent from "./component/BoardInputComponent";
+
+import ProductUploadComponent from "./component/ProductUploadComponent";
+import ProductCartComponent from "./component/ProductCartComponent";
+import ProductDetailComponent from "./component/ProductDetailComponent";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="flex">
+        <div className="w-1/6 ml-20">
+          <Nev />
+        </div>
+        <div className="w-4/6">
+          <Routes className="routes">
+            <Route path="/cart" element={<ProductCartComponent />} />
+            <Route path="/" element={<CategoryComponent />} />
+            <Route path="/list" element={<ListComponent />} />
+            <Route path="/login" element={<LoginComponent />} />
+            <Route path="/signin" element={<SigninComponent />} />
+            <Route path="/chat" element={<ChatComponent />} />
+            <Route path="/ordercheck" element={<OrderCheckList />} />
+            <Route path="/boardinput" element={<BoardInputComponent />} />
+            <Route path="/productdetail" element={<ProductDetailComponent />} />
+            <Route path="/productupload" element={<ProductUploadComponent />} />
+          </Routes>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
