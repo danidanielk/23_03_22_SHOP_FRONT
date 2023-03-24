@@ -11,6 +11,7 @@ import BoardInputComponent from "./component/BoardInputComponent";
 import ProductUploadComponent from "./component/ProductUploadComponent";
 import ProductCartComponent from "./component/ProductCartComponent";
 import ProductDetailComponent from "./component/ProductDetailComponent";
+import BuyComponent from "./component/BuyComponent";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/boardinput" element={<BoardInputComponent />} />
             <Route path="/productdetail" element={<ProductDetailComponent />} />
             <Route path="/productupload" element={<ProductUploadComponent />} />
+            <Route path="/buy" element={<BuyComponent />} />
           </Routes>
         </div>
       </div>

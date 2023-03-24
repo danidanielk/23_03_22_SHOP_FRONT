@@ -1,42 +1,30 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-
-
-
+import Address from "./Address";
 
 function Nev() {
- 
+  const address = () => {
+    <Address />;
+  };
 
-  
- 
+  const onCart = () => {
+    axios
+      .get("http://localhost:8080/member/auth", { withCredentials: true })
+      .then((response) => {
+        const authData = response.data;
+        const MemberId = authData.memberId;
+        const auth = authData.auth;
+        console.log(authData);
+        window.location.assign(`/cart?memberId=${MemberId}&auth=${auth}`);
+        // if(authData.auth != null){
+        //   setAuth(authData.auth)
+        // }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-const onCart=()=>{
-  
-    axios.get("http://localhost:8080/member/auth",{withCredentials:true})
-    .then((response)=>{
-      const authData=response.data
-      const MemberId=authData.memberId
-      const auth = authData.auth
-      console.log(authData)
-      window.location.assign(`/cart?memberId=${MemberId}&auth=${auth}`)
-      // if(authData.auth != null){
-      //   setAuth(authData.auth)
-      // }
-  
-  
-    }).catch((error)=>{
-      console.log(error)
-    })
-  
- 
-
-
-}
-
-
-
- 
   return (
     <>
       <>
@@ -69,6 +57,10 @@ const onCart=()=>{
                   <a href="/list">리스트</a>
                 </li>
                 {/*  */}
+                <div>
+                <a href="/buy">구매페이지</a>
+                  
+                </div>
                 {/*  */}
                 <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
                   <svg
@@ -156,11 +148,7 @@ const onCart=()=>{
                       d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                     />
                   </svg>
-                  <button
-                  onClick={onCart}
-                  >MyPage
-                  </button>
-                  
+                  <button onClick={onCart}>MyPage</button>
                 </li>
                 <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
                   <svg
@@ -214,7 +202,7 @@ const onCart=()=>{
                   <a href="/ordercheck">OrderCheck</a>
                 </li>
                 {/*  */}
-                
+
                 {/*  */}
               </ul>
             </div>
