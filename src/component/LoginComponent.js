@@ -6,8 +6,8 @@ function LoginComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginDto, setLoginDto] = useState("");
-  const [accessTk, setAccessTk] = useState("")
-  const [refreshTk, setRefreshTk] = useState("")
+  const [accessTk, setAccessTk] = useState("");
+  const [refreshTk, setRefreshTk] = useState("");
 
   const onEmail = (e) => {
     setEmail(e.target.value);
@@ -38,7 +38,7 @@ function LoginComponent() {
         console.log(response);
         const loginDto = response.data;
         const accessTk = loginDto.accessToken;
-        const refreshTk =loginDto.refreshToken
+        const refreshTk = loginDto.refreshToken;
 
         const cookies = new Cookies();
         cookies.set("accessTK", accessTk, {

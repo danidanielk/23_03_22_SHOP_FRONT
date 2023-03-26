@@ -12,6 +12,8 @@ import ProductUploadComponent from "./component/ProductUploadComponent";
 import ProductCartComponent from "./component/ProductCartComponent";
 import ProductDetailComponent from "./component/ProductDetailComponent";
 import BuyComponent from "./component/BuyComponent";
+import ListAllComponent from "./component/ListAllComponent";
+import ProductPatchComponent from "./component/ProductPatchComponent";
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
             <Route path="/cart" element={<ProductCartComponent />} />
             <Route path="/" element={<CategoryComponent />} />
             <Route path="/list" element={<ListComponent />} />
+            <Route path="/listall" element={<ListAllComponent />} />
             <Route path="/login" element={<LoginComponent />} />
             <Route path="/signin" element={<SigninComponent />} />
             <Route path="/chat" element={<ChatComponent />} />
@@ -33,6 +36,8 @@ function App() {
             <Route path="/productdetail" element={<ProductDetailComponent />} />
             <Route path="/productupload" element={<ProductUploadComponent />} />
             <Route path="/buy" element={<BuyComponent />} />
+            <Route path="/patch" element={<ProductPatchComponent />} />
+            
           </Routes>
         </div>
       </div>

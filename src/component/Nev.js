@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import Address from "./Address";
 
 function Nev() {
-  const address = () => {
-    <Address />;
+  const onList = () => {
+    window.location.assign("/listall");
   };
 
   const onCart = () => {
@@ -54,13 +54,9 @@ function Nev() {
                       d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"
                     />
                   </svg>
-                  <a href="/list">리스트</a>
+                  <button onClick={onList}>전체 상품</button>
                 </li>
-                {/*  */}
-                <div>
-                <a href="/buy">구매페이지</a>
-                  
-                </div>
+
                 {/*  */}
                 <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
                   <svg
@@ -80,23 +76,7 @@ function Nev() {
                   <a href="/boardinput">글작성</a>
                 </li>
                 {/*  */}
-                <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"
-                    />
-                  </svg>
-                  <a href="/productdetail">상품상세보기</a>
-                </li>
+
                 {/*  */}
                 <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
                   <svg
@@ -116,23 +96,7 @@ function Nev() {
 
                   <a href="/">카테고리</a>
                 </li>
-                <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
-                    />
-                  </svg>
-                  <a href="/chat">상담</a>
-                </li>
+
                 <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +163,10 @@ function Nev() {
                       d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
                     />
                   </svg>
-                  <a href="/ordercheck">OrderCheck</a>
+                  <button
+                  >
+                    Logout
+                     </button>
                 </li>
                 {/*  */}
 
@@ -207,23 +174,7 @@ function Nev() {
               </ul>
             </div>
           </div>
-          <div className="bg-white flex items-center space-x-4 pl-10 pb-10 hover:text-indigo-600 cursor-pointer">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-              />
-            </svg>
-            <a href="">Logout</a>
-          </div>
+       
         </nav>
       </>
     </>

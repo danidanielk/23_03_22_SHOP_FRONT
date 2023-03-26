@@ -2,19 +2,19 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-function ListComponent() {
+function ListAllComponent() {
   const click = (productId) => {
     window.location.assign(`/productdetail/?productId=${productId}`);
   };
 
   const [dataList, setDataList] = useState([]);
 
-  const location = useLocation();
-  const category = new URLSearchParams(location.search).get("category");
+  //   const location = useLocation();
+  //   const category = new URLSearchParams(location.search).get("category");
 
   useEffect(() => {
     axios
-      .post(`http://localhost:8080/product/category/${category}`)
+      .post(`http://localhost:8080/product/listall`)
       .then((response) => {
         const getDataList = response.data;
         setDataList(getDataList);
@@ -68,4 +68,4 @@ function ListComponent() {
     </>
   );
 }
-export default ListComponent;
+export default ListAllComponent;

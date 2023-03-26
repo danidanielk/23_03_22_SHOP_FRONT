@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-function ProductUploadComponent() {
+function ProductPatchComponent() {
   const [productCategory, setProductCategory] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
@@ -27,6 +28,11 @@ function ProductUploadComponent() {
     };
   };
   // 여기까지 이미지 업로드시 바로 보여주는 구간.
+
+  const location = useLocation();
+  const productId = new URLSearchParams(location.search).get("productId");
+  const memberId = new URLSearchParams(location.search).get("memberId");
+  const auth = new URLSearchParams(location.search).get("auth");
 
   const onProductName = (e) => {
     setProductName(e.target.value);
@@ -66,8 +72,8 @@ function ProductUploadComponent() {
     formData.append("productImage", selectFile);
 
     axios
-      .post(
-        "http://localhost:8080/manager/upload",
+      .patch(
+        `http://localhost:8080/manager/patch/${productId}`,
         formData,
         { withCredentials: true },
         { headers: { "Content-Type": "multipart/form-data" } },
@@ -77,7 +83,7 @@ function ProductUploadComponent() {
       )
       .then((value) => {
         console.log(value);
-        window.location.assign("/");
+        window.location.assign(`/cart?memberId=${memberId}&auth=${auth}`);
       })
       .catch((error) => {
         console.log(error);
@@ -171,4 +177,4 @@ function ProductUploadComponent() {
     </>
   );
 }
-export default ProductUploadComponent;
+export default ProductPatchComponent;

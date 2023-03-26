@@ -3,26 +3,41 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 function ProductDetailComponent() {
+  const [product, setProduct] = useState("");
+  const [inQuantity, setInQuantity] = useState("");
+  const onQuantity = (e) => {
+    setInQuantity(e.target.value);
+  };
+  const [productPrice, setProductPrice] = useState("");
+  const setPrice = productPrice * inQuantity;
+
+  const cart = false;
+
   const onBuy = (productId) => {
-    
+    window.location.assign(
+      `/buy?productId=${productId}&thisQuantity=${inQuantity}&thisPrice=${setPrice}&cart=${cart}`
+    );
+    // window.location.assign(`/buy?productId=${cartProductId}&thisQuentity=${thisQuentity}`)
   };
 
   const onSave = (productId) => {
-    axios.get(`http://localhost:8080/product/product/add/${productId}`,{withCredentials:true})
-    .then((response)=>{
-      const memberId = response.data
-      console.log(memberId,productId)
-      alert("등록 완료 ")
-      window.location.assign(`/productdetail/?productId=${productId}`);
-    })
-    .then((error)=>{
-      console.log(error)
-      // alert("로그인 해주세요")
-      // window.location.assign("/login")
-    })
+    axios
+      .get(
+        `http://localhost:8080/product/product/add/${productId}/${inQuantity}/${setPrice}`,
+        { withCredentials: true }
+      )
+      .then((response) => {
+        const memberId = response.data;
+        console.log(memberId, productId);
+        alert("등록 완료 ");
+        window.location.assign(`/productdetail/?productId=${productId}`);
+      })
+      .then((error) => {
+        console.log(error);
+        // alert("로그인 해주세요")
+        // window.location.assign("/login")
+      });
   };
-
-  const [product, setProduct] = useState("");
 
   const location = useLocation();
   const productId = new URLSearchParams(location.search).get("productId");
@@ -34,6 +49,7 @@ function ProductDetailComponent() {
         const getProduct = response.data;
         console.log(getProduct);
         setProduct(getProduct);
+        setProductPrice(getProduct.productPrice);
       })
       .catch((error) => {
         console.log(error);
@@ -118,7 +134,7 @@ function ProductDetailComponent() {
                       style={{ transform: "translateX(0%)" }}
                     >
                       <img
-                        src={(product.productImage)}
+                        src={product.productImage}
                         // src="https://i.ibb.co/fMGD6ZC/eugene-chystiakov-3ne-Swyntb-Q8-unsplash-1-removebg-preview-3-1.png"
                         alt="A black chair with wooden legs"
                         className="w-60 h-60"
@@ -163,11 +179,35 @@ function ProductDetailComponent() {
                 <h1 className="text-3xl lg:text-4xl font-semibold text-gray-800 dark:text-white">
                   {product.productName}
                 </h1>
-                <p className="text-base leading-normal text-gray-600 dark:text-white mt-2">
-                  {product.productContent}
-                </p>
-                <p className="text-3xl font-medium text-gray-600 dark:text-white mt-8 md:mt-10"></p>
-                <div className="flex items-center flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8 mt-8 md:mt-16">
+                <div className="mt-5">
+                  <p className="text-3xl lg:text-2xl font-semibold text-gray-800 dark:text-white">
+                    {product.category}
+                  </p>
+                  {/* <p className="text-base leading-normal text-gray-600 dark:text-white mt-2">
+                
+                 {product.productContent}
+                </p> */}
+                  <div className="mt-6">
+                    {/* <button className="text-xl underline text-gray-800 dark:text-white dark:hover:text-gray-200 capitalize hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
+                    재고수량:{product.productQuentity}
+                  </button> */}
+
+                    <button className="text-3xl lg:text-2xl font-semibold text-gray-800 dark:text-white">
+                      $ {setPrice}
+                    </button>
+                    <div>
+                      <input
+                        className="text-3xl lg:text-2xl font-semibold text-gray-800 dark:text-white"
+                        type="number"
+                        placeholder="수량을 입력해주세요"
+                        value={inQuantity}
+                        onChange={onQuantity}
+                      ></input>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-3xl font-medium text-gray-600 dark:text-white mt-8 md:mt-5"></p>
+                <div className="flex items-center flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8 mt-8 md:mt-10">
                   <button
                     onClick={() => onSave(product.productId)}
                     className="w-full md:w-3/5 border border-gray-800 text-base font-medium leading-none text-white uppercase py-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 bg-gray-800 text-white dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
@@ -179,15 +219,6 @@ function ProductDetailComponent() {
                     className="w-full md:w-2/5 border border-gray-800 text-base font-medium leading-none text-gray-800 dark:text-white uppercase py-6 bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 dark:bg-transparent dark:border-white dark:text-white focus:ring-gray-800 hover:bg-gray-800 hover:text-white dark:hover:bg-gray-800 "
                   >
                     BUY
-                  </button>
-                </div>
-                <div className="mt-6">
-                  <button className="text-xl underline text-gray-800 dark:text-white dark:hover:text-gray-200 capitalize hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
-                    재고수량:{product.productQuentity}
-                  </button>
-
-                  <button className="text-xl underline text-gray-800 dark:text-white dark:hover:text-gray-200 capitalize hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800">
-                    가격:{product.productPrice}
                   </button>
                 </div>
               </div>
