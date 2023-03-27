@@ -98,7 +98,21 @@ function ProductCartComponent() {
           </li>
           </div>
           </div>
-          ) : null}
+          ) : 
+          
+         
+          <div>
+          <li className="wide-full flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
+          <a
+            className="border-1 ml-6 text-1xl lg:text-1xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-20"
+            href="/ordercheck2"
+          >
+            - 나의 주문내역
+          </a>
+        </li>
+        </div>
+      
+          }
           {nullData === true && <div>장바구니가 없습니다.</div>}
           <div className="ml-6 mr-6 grid grid-cols-10 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-15 mt-8 md:mt-0">
             {data.map((value) => (

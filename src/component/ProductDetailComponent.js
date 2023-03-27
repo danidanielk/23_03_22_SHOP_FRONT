@@ -14,9 +14,13 @@ function ProductDetailComponent() {
   const cart = false;
 
   const onBuy = (productId) => {
-    window.location.assign(
-      `/buy?productId=${productId}&thisQuantity=${inQuantity}&thisPrice=${setPrice}&cart=${cart}`
-    );
+    if (setPrice === 0 ) {
+      alert("수량을 입력해주세요");
+    } else {
+      window.location.assign(
+        `/buy?productId=${productId}&thisQuantity=${inQuantity}&thisPrice=${setPrice}&cart=${cart}`
+      );
+    }
     // window.location.assign(`/buy?productId=${cartProductId}&thisQuentity=${thisQuentity}`)
   };
 

@@ -14,6 +14,7 @@ import ProductDetailComponent from "./component/ProductDetailComponent";
 import BuyComponent from "./component/BuyComponent";
 import ListAllComponent from "./component/ListAllComponent";
 import ProductPatchComponent from "./component/ProductPatchComponent";
+import OrderCheckListCustomer from "./component/OrderCheckListCustomer";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/signin" element={<SigninComponent />} />
             <Route path="/chat" element={<ChatComponent />} />
             <Route path="/ordercheck" element={<OrderCheckList />} />
+            <Route path="/ordercheck2" element={<OrderCheckListCustomer />} />
             <Route path="/boardinput" element={<BoardInputComponent />} />
             <Route path="/productdetail" element={<ProductDetailComponent />} />
             <Route path="/productupload" element={<ProductUploadComponent />} />

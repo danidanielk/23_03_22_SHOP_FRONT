@@ -63,7 +63,7 @@ function BuyComponent() {
   const onBuy = (productName, email, phone) => {
     const buyData = {
       address: getAddress,
-      Email: email,
+      email: email,
       phone: phone,
       productName: productName,
       productPrice: thisPrice,
