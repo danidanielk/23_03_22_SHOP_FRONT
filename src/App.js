@@ -15,6 +15,12 @@ import BuyComponent from "./component/BuyComponent";
 import ListAllComponent from "./component/ListAllComponent";
 import ProductPatchComponent from "./component/ProductPatchComponent";
 import OrderCheckListCustomer from "./component/OrderCheckListCustomer";
+import BoardViewComponent from "./component/BoardViewComponent";
+import BoardListComponent from "./component/BoardListComponent";
+import BoardListCustomerComponent from "./component/BoardListCustomerComponent";
+import BoardViewCustomerComponent from "./component/BoardViewCustomerComponent";
+import CustomerList from "./component/CustomerList";
+import ModifyMember from "./component/ModifyMember";
 
 function App() {
   return (
@@ -35,10 +41,16 @@ function App() {
             <Route path="/ordercheck" element={<OrderCheckList />} />
             <Route path="/ordercheck2" element={<OrderCheckListCustomer />} />
             <Route path="/boardinput" element={<BoardInputComponent />} />
+            <Route path="/boardview" element={<BoardViewComponent />} />
+            <Route path="/boardview2" element={<BoardViewCustomerComponent />} />
+            <Route path="/boardlist" element={<BoardListComponent />} />
+            <Route path="/boardlist2" element={<BoardListCustomerComponent />} />
             <Route path="/productdetail" element={<ProductDetailComponent />} />
             <Route path="/productupload" element={<ProductUploadComponent />} />
             <Route path="/buy" element={<BuyComponent />} />
             <Route path="/patch" element={<ProductPatchComponent />} />
+            <Route path="/customerlist" element={<CustomerList />} />
+            <Route path="/modify" element={<ModifyMember />} />
             
           </Routes>
         </div>

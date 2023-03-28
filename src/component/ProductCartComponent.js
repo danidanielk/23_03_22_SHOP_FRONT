@@ -73,74 +73,175 @@ function ProductCartComponent() {
     <>
       <>
         {/* MANAGER */}
-
-        <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+        <div>
+              <h1 className="text-3xl lg:text-4xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-10 mt-10">
+                My Page
+              </h1>
+            </div>
+        <div className="bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+    
           {auth === "MANAGER" ? (
             <div>
-            <div>
-            <li className="wide-full flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-              <a
-                className="border-1 ml-6 text-1xl lg:text-1xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-5"
-                href="/productupload"
-              >
-                - ManagerPage 상품등록
-              </a>
-            </li>
-            </div>
-            <div>
+
+              
+          <div className="">
+            
             <li className="wide-full flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
             <a
-              className="border-1 ml-6 text-1xl lg:text-1xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-20"
-              href="/ordercheck"
+              className="border-1 ml-6 text-1xl lg:text-1xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-5"
+              href="/boardlist"
             >
-              - ManagerPage 배송관리
+              - Manager Tab
             </a>
           </li>
           </div>
+
+            <div className="wide-full item-center ml-7">
+            <li className=" wide-full flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
+              <a
+                className="shadow bg-teal-600 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-5"
+                href="/productupload"
+              >
+                상품 등록
+              </a> 
+
+              <a
+              className="shadow bg-teal-600 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-5"
+              href="/ordercheck"
+            >
+              배송 관리
+            </a>
+
+            <a
+              className="shadow bg-teal-600 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-5"
+              href="/boardlist"
+            >
+              문의 사항
+            </a>
+
+        
+
+            <a
+              className="shadow bg-teal-600 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-5"
+              href="/customerlist"
+            >
+              회원 조회
+            </a>
+            </li>
+            </div>
+
+   
+
+          <div className="mt-10">
+            
+            <li className="wide-full flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
+            <a
+              className="border-1 ml-6 text-1xl lg:text-1xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-5"
+              href="/boardlist"
+            >
+              - Product List
+            </a>
+          </li>
+          </div>
+
+
+
           </div>
           ) : 
           
-         
-          <div>
+         <div>
+
+<div className="mt-10">
+            
+            <li className="wide-full flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
+            <a
+              className="border-1 ml-6 text-1xl lg:text-1xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-5"
+              href="/boardlist"
+            >
+              - My Tab
+            </a>
+          </li>
+          </div>
+
+
+          <div className="ml-5">
           <li className="wide-full flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
           <a
-            className="border-1 ml-6 text-1xl lg:text-1xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-20"
+            className="shadow bg-teal-600 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded  mb-5"
             href="/ordercheck2"
           >
-            - 나의 주문내역
+            주문 내역
+          </a>
+      
+          <a
+            className="shadow bg-teal-600 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-5"
+            href="/boardlist2"
+          >
+            문의 사항
+          </a>
+
+          <a
+            className="shadow bg-teal-600 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-5"
+            href="/modify"
+          >
+            회원 정보
           </a>
         </li>
         </div>
+
+
+
+  <div className="mt-10">
+            <li className="wide-full flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
+            <div
+              className="border-1 ml-6 text-1xl lg:text-1xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-5"
+              
+            >
+              - 장바구니
+            </div>
+          </li>
+          </div>    
+
       
+</div>
+
           }
           {nullData === true && <div>장바구니가 없습니다.</div>}
+           
+        
+
+          
+
           <div className="ml-6 mr-6 grid grid-cols-10 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-15 mt-8 md:mt-0">
+            
             {data.map((value) => (
               <div className="bg-white shadow-lg border-gray-100 max-h-52	 border sm:rounded-3xl p-8 flex space-x-36">
+                
                 <div className="h-48 overflow-visible w-1/2">
                   <img
                     className="rounded-3xl shadow-lg"
                     src={value.productImage}
                   />
                 </div>
-                <div className="flex flex-col w-1/2 space-y-1 mt-">
-                  <div className="flex justify-between items-start">
-                    <div className="text-gray-400 max-h-40 overflow-y-hidden">
+                <div className=" flex flex-col w-1/2 space-y-1 ">
+                  <div className=" flex justify-between items-start">
+                    <div className=" text-gray-400 max-h-40 overflow-y-hidden">
                       {value.category} : {value.productName}
                     </div>
                   </div>
 
-                  <div className="">$ {value.productPrice} / 수량 : {value.productQuantity}{value.thisQuantity}</div>
+                  <div className="">$ {value.productPrice}</div>
+                  <div className=""> 수량 : {value.productQuantity}{value.thisQuantity}</div>
 
                   {auth === "MANAGER" ? (
                     <>
-                      <div className="mt-5">
-                        <div className="mt-5 shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                      <div className="mt-3">
+                        <div className="text-center mt-3 shadow bg-gray-500 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                           <button onClick={() => onPatch(value.productId)}>
                             수정
                           </button>
                         </div>
-                        <div className="mt-2 shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <div className="text-center mt-2 shadow bg-gray-500 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                           <button
                             onClick={() => onManagerDelete(value.productId)}
                           >
@@ -156,7 +257,7 @@ function ProductCartComponent() {
                     className="mt-5"
                     >
                       
-                      <div className=" shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                      <div className="mt-3 text-center shadow bg-gray-500 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                         <button
                           onClick={() =>
                             onBuy(
@@ -170,7 +271,7 @@ function ProductCartComponent() {
                           BUY
                         </button>
                       </div>
-                      <div className="mt-2 shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                      <div className="text-center mt-2 shadow bg-gray-500 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                         <button
                           onClick={() => onCustomerDelete(value.cartProductId)}
                         >

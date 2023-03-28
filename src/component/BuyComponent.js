@@ -85,6 +85,8 @@ function BuyComponent() {
       .then((response) => {
         console.log(response);
         console.log(blob);
+        alert("주문이 완료되었습니다.")
+        window.location.assign("/")
       })
       .catch((error) => {
         console.log(error);

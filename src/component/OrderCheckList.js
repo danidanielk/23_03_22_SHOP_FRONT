@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function OrderCheckList() {
-  
   const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
@@ -25,7 +24,8 @@ function OrderCheckList() {
       })
       .then((response) => {
         const getDataList = response.data;
-        const savedDataList = JSON.parse(localStorage.getItem("dataList")) || [];
+        const savedDataList =
+          JSON.parse(localStorage.getItem("dataList")) || [];
         if (getDataList.length !== savedDataList.length) {
           setDataList(getDataList);
         }
@@ -34,7 +34,6 @@ function OrderCheckList() {
         console.log(error);
       });
   }, []);
-  
 
   const onReady = (index) => {
     setDataList((prevDataList) => {
@@ -92,9 +91,9 @@ function OrderCheckList() {
                   <th className="text-left p-3 px-5">Email</th>
                   <th className="text-left p-3 px-5">상품</th>
                   <th className="text-left p-3 px-5">수량</th>
-                  <th className="text-left p-3 px-5">주소반환</th>
+                  <th className="text-left p-3 px-5 ">주소</th>
                   <th className="text-left p-3 px-5">메세지</th>
-                  <th className="text-left p-3 px-5">상태</th>
+                  <th className="text-left p-3 px-5 ">상태</th>
                 </tr>
                 {dataList.map((value, index) => (
                   <tr
@@ -106,37 +105,28 @@ function OrderCheckList() {
                     </td>
 
                     <td className="p-3 px-5">
-                    <div>
-                     {value.phone}
-                    </div>
-                  </td>
+                      <div>{value.phone}</div>
+                    </td>
 
-                  <td className="p-3 px-5">
-                    <div>
-                      {value.productQuantity}
-                    </div>
-                  </td>
+                    <td className="p-3 px-5">
+                      <div>{value.productQuantity}</div>
+                    </td>
 
-                  <td className="p-3 px-5">
-                    <div>
-                      {value.address}
-                    </div>
-                  </td>
+                    <td className="p-3 px-5">
+                      <div>{value.address}</div>
+                    </td>
 
-                   
-                  <td className="p-3 px-5">
-                    <div>
-                      {value.message}
-                    </div>
-                  </td>
+                    <td className="p-3 px-5">
+                      <div>{value.message}</div>
+                    </td>
 
-                      <td>
+                    <td>
                       <button
                         onClick={() => onSuccess(index)}
                         type="button"
-                        className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                        className=" text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                       >
-                        {value.success ? "배송완료" :"----"}
+                        {value.success ? "배송완료" : "----"}
                       </button>
                     </td>
                   </tr>
