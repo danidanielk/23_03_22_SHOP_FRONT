@@ -9,7 +9,6 @@ function ProductCartComponent() {
   const cart = true;
 
   const [data, setData] = useState([]);
-  const [nullData, setNullData] = useState("");
 
   const onBuy = (productId, cartProductId, thisQuantity, productPrice) => {
     window.location.assign(
@@ -55,14 +54,9 @@ function ProductCartComponent() {
     axios
       .post(`http://localhost:8080/member/mypage/${memberId}`)
       .then((response) => {
-        if (response.data !== null) {
           const getData = response.data;
           console.log(getData);
           setData(getData);
-        } else {
-          const nullData = true;
-          setNullData(nullData);
-        }
       })
       .catch((error) => {
         console.log(error);
@@ -206,7 +200,7 @@ function ProductCartComponent() {
 </div>
 
           }
-          {nullData === true && <div>장바구니가 없습니다.</div>}
+          
            
         
 
@@ -236,12 +230,12 @@ function ProductCartComponent() {
                   {auth === "MANAGER" ? (
                     <>
                       <div className="mt-3">
-                        <div className="text-center mt-3 shadow bg-gray-500 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <div className="text-center mt-3 shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                           <button onClick={() => onPatch(value.productId)}>
                             수정
                           </button>
                         </div>
-                        <div className="text-center mt-2 shadow bg-gray-500 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <div className="text-center mt-2 shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                           <button
                             onClick={() => onManagerDelete(value.productId)}
                           >
@@ -257,7 +251,7 @@ function ProductCartComponent() {
                     className="mt-5"
                     >
                       
-                      <div className="mt-3 text-center shadow bg-gray-500 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                      <div className="mt-3 text-center shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                         <button
                           onClick={() =>
                             onBuy(
@@ -271,7 +265,7 @@ function ProductCartComponent() {
                           BUY
                         </button>
                       </div>
-                      <div className="text-center mt-2 shadow bg-gray-500 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                      <div className="text-center mt-2 shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                         <button
                           onClick={() => onCustomerDelete(value.cartProductId)}
                         >

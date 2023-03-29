@@ -45,56 +45,72 @@ function ModifyMember() {
   }, []);
 
   const onButton = () => {
-    const jsonData = {
-      phone: phone,
-      password: password,
-      currentPassword: password3,
-    };
-    const json = JSON.stringify(jsonData);
-    const blob = new Blob([json], { type: "application/json" });
+    if (!password3 || !password || !password2) {
+      alert("비밀번호를 입력해주세요");
+    } else {
+      const jsonData = {
+        phone: phone,
+        password: password,
+        currentPassword: password3,
+      };
+      const json = JSON.stringify(jsonData);
+      const blob = new Blob([json], { type: "application/json" });
 
-    axios
-      .patch("http://localhost:8080/member/modify", blob, {withCredentials:true,
-        headers: { "Content-Type": "application/json" },
-      })
+      axios
+        .patch("http://localhost:8080/member/modify", blob, {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        })
 
-      .then((Response) => {
-        console.log(Response);
-        alert("수정 완료")
-        window.location.assign("/login");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((Response) => {
+          console.log(Response);
+          alert("수정 완료");
+          window.location.assign("/login");
+        })
+        .catch((error) => {
+          alert("비밀번호를 확인해 주세요");
+          console.log(error);
+        });
+    }
   };
 
-  const onButton2 = (memberId) => {
-    
-    if(password3 === null || password3 ===undefined || password3===""){
-        alert("현재 비밀번호를 입력해주세요")
-    }
-    else{
+  const onButton2 = (memberId,password3) => {
+    if (!password3) {
+      console.log(memberId);
+      alert("현재 비밀번호를 입력해주세요");
+    } else {
 
-        const formData = new FormData
-        formData.append("password",password3)
-    
-        
-        axios
-        .delete(`http://localhost:8080/member/modify/delete/${memberId}`, formData,{
+      const formData = new FormData();
+      formData.append("password", password3);
+      formData.append("memberId",memberId)
+      // console.log(password3)
+
+      // const jsonData = { password: password3 };
+      // const json = JSON.stringify(jsonData);
+      // const blob = new Blob([json], { type: "application/json" });
+
+      axios
+        .post(
+          `http://localhost:8080/member/modify/delete`,
+          formData,
+          {
             withCredentials: true,
-        })
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
         .then((response) => {
-        console.log(response);
-        alert("계정이 삭제되었습니다.")
-        window.location.assign("/")
-      })
-      .catch((error) => {
-        alert("비밀번호를 잘못 입력하셨습니다.")
+          console.log(response);
+          alert("계정이 삭제되었습니다.");
+          window.location.assign("/");
+        })
+        .catch((error) => {
+          console.log(password3);
+          alert("비밀번호를 잘못 입력하셨습니다.");
           console.log(error);
-      });
-    };
-}
-    
+        });
+    }
+  };
+
   return (
     <>
       <>
@@ -154,7 +170,8 @@ function ModifyMember() {
             <button
               type="button"
               className="w-full h-12 rounded-lg bg-gray-600 text-gray-200 uppercase font-semibold hover:bg-red-700 text-gray-100 transition mb-4"
-              onClick={() => onButton2(data.memberId)}
+              onClick={() => onButton2(data.memberId,password3)}
+              // onClick={onButton2}
             >
               회원 탈퇴
             </button>
