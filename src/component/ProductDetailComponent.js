@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Cookies } from "react-cookie";
 import { useLocation } from "react-router-dom";
 
 function ProductDetailComponent() {
@@ -14,7 +15,7 @@ function ProductDetailComponent() {
   const cart = false;
 
   const onBuy = (productId) => {
-    if (setPrice === 0 ) {
+    if (setPrice === 0) {
       alert("수량을 입력해주세요");
     } else {
       window.location.assign(
@@ -47,8 +48,11 @@ function ProductDetailComponent() {
   const productId = new URLSearchParams(location.search).get("productId");
 
   useEffect(() => {
+
     axios
-      .post(`http://localhost:8080/product/productid/${productId}`)
+      .post(`http://localhost:8080/product/productid/${productId}`, {
+        withCredentials: true,
+      })
       .then((response) => {
         const getProduct = response.data;
         console.log(getProduct);

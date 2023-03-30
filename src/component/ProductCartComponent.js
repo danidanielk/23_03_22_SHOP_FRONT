@@ -52,7 +52,7 @@ function ProductCartComponent() {
 
   useEffect(() => {
     axios
-      .post(`http://localhost:8080/member/mypage/${memberId}`)
+      .post(`http://localhost:8080/member/mypage/${memberId}`,{withCredentials: true})
       .then((response) => {
           const getData = response.data;
           console.log(getData);

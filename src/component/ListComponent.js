@@ -14,7 +14,9 @@ function ListComponent() {
 
   useEffect(() => {
     axios
-      .post(`http://localhost:8080/product/category/${category}`)
+      .post(`http://localhost:8080/product/category/${category}`, {
+        withCredentials: true,
+      })
       .then((response) => {
         const getDataList = response.data;
         setDataList(getDataList);

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Cookies } from "react-cookie";
 import Address from "./Address";
 
 function Nev() {
@@ -8,12 +9,17 @@ function Nev() {
   };
 
   const onCart = () => {
+    
+    
     axios
-      .get("http://localhost:8080/member/auth", { withCredentials: true })
+    .get("http://localhost:8080/member/auth", { withCredentials: true })
       .then((response) => {
         const authData = response.data;
         const MemberId = authData.memberId;
         const auth = authData.auth;
+ 
+        
+
         console.log(authData);
         window.location.assign(`/cart?memberId=${MemberId}&auth=${auth}`);
         // if(authData.auth != null){
@@ -24,6 +30,14 @@ function Nev() {
         console.log(error);
       });
   };
+
+
+  const onLogout=()=>{
+    const cookie = new Cookies()
+    cookie.remove("accessTK")
+    cookie.remove("refreshTK")
+    window.location.assign("/")
+  }
 
   return (
     <>
@@ -164,6 +178,7 @@ function Nev() {
                     />
                   </svg>
                   <button
+                  onClick={onLogout}
                   >
                     Logout
                      </button>

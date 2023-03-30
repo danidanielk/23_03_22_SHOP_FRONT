@@ -14,7 +14,7 @@ function ListAllComponent() {
 
   useEffect(() => {
     axios
-      .post(`http://localhost:8080/product/listall`)
+      .post(`http://localhost:8080/product/listall`,{withCredentials: true})
       .then((response) => {
         const getDataList = response.data;
         setDataList(getDataList);

@@ -42,7 +42,7 @@ function SigninComponent() {
     // formData.append("blob", blob);
     axios
       .post("http://localhost:8080/member/signin", blob, {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },withCredentials: true
       })
       // axios.post("http://localhost:8080/member/signin", blob,  { headers: { "Content-Type": "application/json" }})
       .then((Response) => {

@@ -30,28 +30,28 @@ function LoginComponent() {
         "http://localhost:8080/member/login",
         blob,
         {
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json"},
         },
         { withCredentials: true }
       )
       .then((response) => {
         console.log(response);
         const loginDto = response.data;
-        const accessTk = loginDto.accessToken;
-        const refreshTk = loginDto.refreshToken;
+        const accessTK = loginDto.accessToken;
+        const refreshTK = loginDto.refreshToken;
 
         const cookies = new Cookies();
-        cookies.set("accessTK", accessTk, {
+        cookies.set("accessTK", accessTK, {
           maxAge: 60 * 10 * 1000,
           path: "/",
         });
-        cookies.set("refreshTK", refreshTk, {
+        cookies.set("refreshTK", refreshTK, {
           maxAge: 60 * 60 * 1000 * 2,
           path: "/",
         });
         // console.log(loginDto)
-        console.log(accessTk);
-        console.log(refreshTk);
+        console.log(accessTK);
+        console.log(refreshTK);
         window.location.assign("/");
       })
       .catch((error) => {
