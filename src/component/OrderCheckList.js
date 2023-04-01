@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 function OrderCheckList() {
+  const [getToken] = useCookies(["accessTK"])
+  const token = getToken.accessTK
   const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
@@ -21,6 +24,7 @@ function OrderCheckList() {
     axios
       .get("http://localhost:8080/manager/orderlist", {
         withCredentials: true,
+        headers:{Authorization:`Bearer ${token}`}
       })
       .then((response) => {
         const getDataList = response.data;
@@ -57,25 +61,7 @@ function OrderCheckList() {
     });
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:8080/manager/orderlist", {
-  //       withCredentials: true,
-  //     })
-  //     .then((response) => {
-  //       const getDataList = response.data;
-  //       setDataList(getDataList);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   // 페이지가 로드될 때마다 localStorage에서 데이터 가져오기
-  //   const savedDataList = JSON.parse(localStorage.getItem("dataList")) || [];
-  //   setDataList(savedDataList);
-  // }, []);
+ 
 
   return (
     <>

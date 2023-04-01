@@ -1,9 +1,16 @@
+import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Cookies } from "react-cookie";
+import { Cookies, useCookies } from "react-cookie";
 import { useLocation } from "react-router-dom";
 
 function ProductDetailComponent() {
+  // const [productId, setProductId] = useState("");
+  const [getToken] = useCookies(["accessTK"]);
+  const token = getToken.accessTK;
+  const location = useLocation();
+  const productId = new URLSearchParams(location.search).get("productId");
+
   const [product, setProduct] = useState("");
   const [inQuantity, setInQuantity] = useState("");
   const onQuantity = (e) => {
@@ -29,7 +36,7 @@ function ProductDetailComponent() {
     axios
       .get(
         `http://localhost:8080/product/product/add/${productId}/${inQuantity}/${setPrice}`,
-        { withCredentials: true }
+        { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
         const memberId = response.data;
@@ -44,14 +51,40 @@ function ProductDetailComponent() {
       });
   };
 
-  const location = useLocation();
-  const productId = new URLSearchParams(location.search).get("productId");
+  const onBookmark = () => {
+    const data = {"productId":productId};
+    const json = JSON.stringify(data)
+    const blob = new Blob([json],{type:"application/json"})
+    axios
+      .post("http://localhost:8080/product/bookmark", blob, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log(response);
+        alert("즐겨찾기에 추가되었습니다.")
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
+    const data = {"productId":productId};
+    const json = JSON.stringify(data)
+    const blob = new Blob([json],{type:"application/json"})
+   
 
     axios
-      .post(`http://localhost:8080/product/productid/${productId}`, {
+      .post("http://localhost:8080/product/productid/", blob, {
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       })
       .then((response) => {
         const getProduct = response.data;
@@ -218,15 +251,21 @@ function ProductDetailComponent() {
                 <div className="flex items-center flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8 mt-8 md:mt-10">
                   <button
                     onClick={() => onSave(product.productId)}
-                    className="w-full md:w-3/5 border border-gray-800 text-base font-medium leading-none text-white uppercase py-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 bg-gray-800 text-white dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
+                    className="w-full md:w-2/5 border border-gray-800 text-base font-medium leading-none text-white uppercase py-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 bg-gray-800 text-white dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
                   >
                     ADD TO CART
                   </button>
                   <button
                     onClick={() => onBuy(product.productId)}
-                    className="w-full md:w-2/5 border border-gray-800 text-base font-medium leading-none text-gray-800 dark:text-white uppercase py-6 bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 dark:bg-transparent dark:border-white dark:text-white focus:ring-gray-800 hover:bg-gray-800 hover:text-white dark:hover:bg-gray-800 "
-                  >
+                    className="w-full md:w-1/5 border border-gray-800 text-base font-medium leading-none text-gray-800 dark:text-white uppercase py-6 bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 dark:bg-transparent dark:border-white dark:text-white focus:ring-gray-800 hover:bg-gray-800 hover:text-white dark:hover:bg-gray-800 "
+                    >
                     BUY
+                  </button>
+                  <button
+                    onClick={onBookmark}
+                    className="w-full md:w-1/5 border border-gray-800 text-base font-medium leading-none text-gray-800 dark:text-white uppercase py-6 bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 dark:bg-transparent dark:border-white dark:text-white focus:ring-gray-800 hover:bg-gray-800 hover:text-white dark:hover:bg-gray-800 "
+                    >
+                    ☆
                   </button>
                 </div>
               </div>

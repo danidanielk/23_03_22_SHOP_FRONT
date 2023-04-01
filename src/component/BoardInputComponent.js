@@ -1,49 +1,54 @@
 import axios from "axios";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 function BoardInputComponent() {
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const [getToken] = useCookies(["accessTK"]);
+  const token = getToken.accessTK;
 
+  const onTitle = (e) => {
+    setTitle(e.target.value);
+  };
 
-const [title,setTitle] = useState('')
-const [message , setMessage] = useState('')
+  const onMessage = (e) => {
+    setMessage(e.target.value);
+  };
 
-const onTitle = (e) =>{
-  setTitle(e.target.value)
-}
+  const onButton = () => {
+    const data = { title: title, message: message };
+    const json = JSON.stringify(data);
+    const blob = new Blob([json], { type: "application/json" });
 
-const onMessage = (e)=>{
-  setMessage(e.target.value)
-}
-
-const onButton=()=>{
-
-  const data = {"title":title,"message":message}
-  const json = JSON.stringify(data)
-  const blob = new Blob([json],{type:"application/json"})
-
-  axios.post("http://localhost:8080/board/save",blob,{withCredentials:true, headers:{"Content-Type":"application/json"}})
-  .then((response)=>{
-    console.log(response)
-    alert("문의사항을 전송하였습니다.")
-    window.location.assign("/")
-  })
-  .catch((error)=>{
-    console.log(error)
-  })
-
-}
+    axios
+      .post("http://localhost:8080/board/save", blob, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        alert("문의사항을 전송하였습니다.");
+        window.location.assign("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
       <>
         <div className="ml-40 mt-10 mr-40">
-        <div>
-              <h1 className="text-3xl lg:text-4xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-20">
+          <div>
+            <h1 className="text-3xl lg:text-4xl font-semibold text-gray-800 dark:text-white text-center dark:text-gray-50 mb-20">
               Question
-              </h1>
-            </div>
+            </h1>
+          </div>
           <div className="flex flex-wrap -mx-3 mb-6">
-            
             <div className="w-full px-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"

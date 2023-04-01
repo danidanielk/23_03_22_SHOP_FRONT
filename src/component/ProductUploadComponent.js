@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 function ProductUploadComponent() {
   const [productCategory, setProductCategory] = useState("");
@@ -9,6 +10,8 @@ function ProductUploadComponent() {
   const [contents, setContents] = useState("");
   const [imageSrc, setImageSrc] = useState("");
   const [loading, setLoading] = useState(false);
+  const [getToken] = useCookies(["accessTK"]);
+  const token = getToken.accessTK;
   //파일 이미지 상태에 저장 변수
   const [selectFile, setSelectFile] = useState("");
 
@@ -66,15 +69,13 @@ function ProductUploadComponent() {
     formData.append("productImage", selectFile);
 
     axios
-      .post(
-        "http://localhost:8080/manager/upload",
-        formData,
-        { withCredentials: true },
-        { headers: { "Content-Type": "multipart/form-data" } },
-        {
-          //   withCredentials: true,
-        }
-      )
+      .post("http://localhost:8080/manager/upload", formData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((value) => {
         console.log(value);
         window.location.assign("/");

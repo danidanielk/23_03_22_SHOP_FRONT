@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect } from "react"
 import { useState } from "react"
+import { useCookies } from "react-cookie"
 import { useLocation } from "react-router-dom"
 
 function BoardViewComponent() {
@@ -8,6 +9,8 @@ function BoardViewComponent() {
 
     const [message,setMessage]=useState('')
     const [data,setData] = useState('')
+    const [getToken] = useCookies(['accessTK'])
+    const token =getToken.accessTK
     
     const onMessage=(e)=>{
         setMessage(e.target.value)
@@ -18,7 +21,7 @@ function BoardViewComponent() {
         const answerData = { "boardId":boardId,"answer":message}
         const json = JSON.stringify(answerData)
         const blob = new Blob([json],{type:"application/json"})
-        axios.post("http://localhost:8080/board/view/answer",blob,{withCredentials:true,headers:{"Content-Type":"application/json"}})
+        axios.post("http://localhost:8080/board/view/answer",blob,{withCredentials:true,headers:{"Content-Type":"application/json",Authorization:`Bearer ${token}`}})
         .then((response)=>{
             console.log(response)
             alert("답변이 전송되었습니다.")
@@ -34,7 +37,7 @@ function BoardViewComponent() {
     const boardId = new URLSearchParams(location.search).get("boardId")
     
     useEffect(()=>{
-        axios.get(`http://localhost:8080/board/view/${boardId}`,{withCredentials:true})
+        axios.get(`http://localhost:8080/board/view/${boardId}`,{withCredentials:true,headers:{Authorization:`Bearer ${token}`}})
         .then((response)=>{
             const getData=response.data
             setData(getData)

@@ -1,11 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 function SigninComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [phone, setPhone] = useState("");
+  const [getToken] = useCookies(["accessTK"]);
+  const token = getToken.accessTK;
 
   const onEmail = (e) => {
     setEmail(e.target.value);
@@ -36,13 +39,15 @@ function SigninComponent() {
     // formData.append("formData", blob);
 
     // const formData = new FormData();
+ 
     const jsonData = { email: email, phone: phone, password: password };
     const json = JSON.stringify(jsonData);
     const blob = new Blob([json], { type: "application/json" });
     // formData.append("blob", blob);
     axios
       .post("http://localhost:8080/member/signin", blob, {
-        headers: { "Content-Type": "application/json" },withCredentials: true
+        headers: { "Content-Type": "application/json" ,Authorization:`Bearer ${token}`},
+        withCredentials: true,
       })
       // axios.post("http://localhost:8080/member/signin", blob,  { headers: { "Content-Type": "application/json" }})
       .then((Response) => {

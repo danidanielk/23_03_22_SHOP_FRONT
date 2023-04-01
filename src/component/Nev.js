@@ -1,9 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Cookies } from "react-cookie";
+import { Cookies, useCookies } from "react-cookie";
 import Address from "./Address";
 
 function Nev() {
+
+  const [getToken] = useCookies(["accessTK"])
+  const token =getToken.accessTK
+
+
   const onList = () => {
     window.location.assign("/listall");
   };
@@ -12,7 +17,7 @@ function Nev() {
     
     
     axios
-    .get("http://localhost:8080/member/auth", { withCredentials: true })
+    .get("http://localhost:8080/member/auth", { withCredentials: true ,headers:{Authorization:`Bearer ${token}`}})
       .then((response) => {
         const authData = response.data;
         const MemberId = authData.memberId;

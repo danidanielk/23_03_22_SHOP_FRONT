@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useLocation } from "react-router-dom";
 
 function ProductPatchComponent() {
@@ -10,6 +11,8 @@ function ProductPatchComponent() {
   const [contents, setContents] = useState("");
   const [imageSrc, setImageSrc] = useState("");
   const [loading, setLoading] = useState(false);
+  const [getToken] = useCookies(["accessTK"])
+  const token = getToken.accessTK
   //파일 이미지 상태에 저장 변수
   const [selectFile, setSelectFile] = useState("");
 
@@ -75,11 +78,9 @@ function ProductPatchComponent() {
       .patch(
         `http://localhost:8080/manager/patch/${productId}`,
         formData,
-        { withCredentials: true },
-        { headers: { "Content-Type": "multipart/form-data" } },
-        {
-          //   withCredentials: true,
-        }
+        { withCredentials: true ,
+        headers: { "Content-Type": "multipart/form-data",Authorization:{Authorization:`Bearer ${token}`} } },
+   
       )
       .then((value) => {
         console.log(value);

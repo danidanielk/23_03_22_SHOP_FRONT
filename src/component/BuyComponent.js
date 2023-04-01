@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Cookies, useCookies } from "react-cookie";
 import DaumPostcode from "react-daum-postcode";
 import { useLocation } from "react-router-dom";
 
@@ -8,6 +9,9 @@ function BuyComponent() {
   const [getAddress, setGetAddress] = React.useState(""); // 선택한 주소 저장
   const [data, setGetData] = useState("");
   const [message, setMessage] = useState("");
+  const [getToken] =useCookies(['accessTK'])
+  const token = getToken.accessTK
+
 
   const onMessage = (e) => {
     setMessage(e.target.value);
@@ -33,9 +37,8 @@ function BuyComponent() {
   useEffect(() => {
     if (cart === "false") {
       axios
-        .get(`http://localhost:8080/member/buy/${productId}`, {
-          withCredentials: true,
-        })
+        .get(`http://localhost:8080/member/buy/${productId}`,{withCredentials:true,headers:{Authorization:`Bearer ${token}`}})
+         
         .then((response) => {
           const getData = response.data;
           setGetData(getData);
@@ -46,7 +49,7 @@ function BuyComponent() {
         });
     } else {
       axios
-        .get(`http://localhost:8080/member/buycart/${cartProductId}`, {
+        .get(`http://localhost:8080/member/buycart/${cartProductId}`, {headers:{Authorization:`Bearer ${token}`},
           withCredentials: true,
         })
         .then((response) => {
@@ -72,15 +75,14 @@ function BuyComponent() {
     };
     const json = JSON.stringify(buyData);
     const blob = new Blob([json], { type: "application/json" });
-
+  
     axios
       .post(
         "http://localhost:8080/member/order",
         blob,
         {
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json" , Authorization:`Bearer ${token}`, withCredentials:true}
         },
-        { withCredentials: true }
       )
       .then((response) => {
         console.log(response);
@@ -89,6 +91,7 @@ function BuyComponent() {
         window.location.assign("/")
       })
       .catch((error) => {
+        console.log(token)
         console.log(error);
       });
   };

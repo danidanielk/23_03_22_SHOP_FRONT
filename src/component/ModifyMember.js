@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 function ModifyMember() {
   const [data, setData] = useState("");
@@ -8,6 +9,8 @@ function ModifyMember() {
   const [password2, setPassword2] = useState("");
   const [phone, setPhone] = useState("");
   const [password3, setPassword3] = useState("");
+  const [getToken] = useCookies(["accessTK"])
+  const token = getToken.accessTK
 
   const onPassword3 = (e) => {
     setPassword3(e.target.value);
@@ -34,6 +37,7 @@ function ModifyMember() {
     axios
       .get("http://localhost:8080/member/modify/data", {
         withCredentials: true,
+        headers:{Authorization:`Bearer ${token}`}
       })
       .then((response) => {
         const getData = response.data;
@@ -59,7 +63,7 @@ function ModifyMember() {
       axios
         .patch("http://localhost:8080/member/modify", blob, {
           withCredentials: true,
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json" ,Authorization:`Bearer ${token}`},
         })
 
         .then((Response) => {
@@ -95,7 +99,7 @@ function ModifyMember() {
           formData,
           {
             withCredentials: true,
-            headers: { "Content-Type": "multipart/form-data" },
+            headers: { "Content-Type": "multipart/form-data" ,Authorization:`Bearer ${token}`},
           }
         )
         .then((response) => {

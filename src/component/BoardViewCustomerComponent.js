@@ -1,19 +1,20 @@
 import axios from "axios"
 import { useEffect } from "react"
 import { useState } from "react"
+import { useCookies } from "react-cookie"
 import { useLocation } from "react-router-dom"
 
 function BoardViewCustomerComponent() {
 
 
     const [data,setData] = useState('')
-    
-
     const location = useLocation()
     const boardId = new URLSearchParams(location.search).get("boardId")
+    const [getToken]=useCookies(["accessTK"])
+    const token = getToken.accessTK
     
     useEffect(()=>{
-        axios.get(`http://localhost:8080/board/view/customer/${boardId}`,{withCredentials:true})
+        axios.get(`http://localhost:8080/board/view/customer/${boardId}`,{withCredentials:true,headers:{Authorization:`Bearer ${token}`}})
         .then((response)=>{
             const getData=response.data
             setData(getData)

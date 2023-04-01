@@ -1,13 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 function BoardListComponent() {
   
   const [dataList, setDataList] = useState([]);
+  const [getToken] = useCookies(['accessTK'])
+  const token = getToken.accessTK
 
   useEffect(()=>{
 
-    axios.get("http://localhost:8080/board/list",{withCredentials:true})
+    axios.get("http://localhost:8080/board/list",{withCredentials:true , headers:{Authorization:`Bearer ${token}`}})
     .then((response)=>{
         const getData = response.data
         console.log(getData)

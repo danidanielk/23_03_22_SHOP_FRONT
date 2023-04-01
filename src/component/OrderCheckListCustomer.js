@@ -1,11 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 function OrderCheckListCustomer() {
+  const [getToken] = useCookies(["accessTK"])
+  const token = getToken.accessTK
 
 
     const onCancel=(orderId)=>{
-        axios.delete(`http://localhost:8080/member/cancel/${orderId}`,{withCredentials:true})
+        axios.delete(`http://localhost:8080/member/cancel/${orderId}`,{withCredentials:true,headers:{Authorization:`Bearer ${token}`}})
         .then((response)=>{
             console.log(response)
             window.location.assign("/ordercheck2")
@@ -24,6 +27,7 @@ function OrderCheckListCustomer() {
       axios
         .get("http://localhost:8080/member/orderlist", {
           withCredentials: true,
+          headers:{Authorization:`Bearer ${token}`}
         })
         .then((response) => {
           const getDataList = response.data;
