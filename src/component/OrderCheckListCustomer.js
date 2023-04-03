@@ -70,7 +70,7 @@ function OrderCheckListCustomer() {
   
                       <td className="p-3 px-5">
                       <div>
-                       {value.phone}
+                       {value.productName}
                       </div>
                     </td>
   

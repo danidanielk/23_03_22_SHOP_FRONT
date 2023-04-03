@@ -30,12 +30,13 @@ function LoginComponent() {
         "http://localhost:8080/member/login",
         blob,
         {
-          headers: { "Content-Type": "application/json"},
-        },
-        { withCredentials: true }
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+        // { withCredentials: true }
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         const loginDto = response.data;
         const accessTK = loginDto.accessToken;
         const refreshTK = loginDto.refreshToken;
@@ -93,7 +94,7 @@ function LoginComponent() {
             >
               Forgot password?
             </a>
-
+{/* 
             <button className="w-full h-12 rounded-lg bg-green-600 text-gray-100 uppercase font-semibold hover:bg-green-700 text-gray-200 transition mb-4">
               Sign with Naver
             </button>
@@ -102,7 +103,7 @@ function LoginComponent() {
             </button>
             <button className="w-full h-12 rounded-lg bg-blue-600 text-gray-100 uppercase font-semibold hover:bg-blue-700 text-gray-100 transition mb-4">
               Sign with GOOGLE
-            </button>
+            </button> */}
           </div>
         </div>
       </>

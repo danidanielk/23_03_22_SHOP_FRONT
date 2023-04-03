@@ -190,10 +190,10 @@ function ProductCartComponent() {
 
           <div className="ml-6 mr-6 grid grid-cols-10 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-15 mt-8 md:mt-0">
             {data.map((value) => (
-              <div className="bg-white shadow-lg border-gray-100 max-h-52	 border sm:rounded-3xl p-8 flex space-x-36">
+              <div className="bg-white shadow-lg border-gray-100 max-h-52	 border sm:rounded-3xl p-5 flex space-x-16">
                 <div className="h-48 overflow-visible w-1/2">
                   <img
-                    className="rounded-3xl shadow-lg"
+                    className="rounded-3xl shadow-lg h-32"
                     src={value.productImage}
                   />
                 </div>
@@ -214,12 +214,12 @@ function ProductCartComponent() {
                   {auth === "MANAGER" ? (
                     <>
                       <div className="mt-3">
-                        <div className="text-center mt-3 shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <div className="text-center mt-3 shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-1 px-4 rounded">
                           <button onClick={() => onPatch(value.productId)}>
                             수정
                           </button>
                         </div>
-                        <div className="text-center mt-2 shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <div className="text-center mt-2 shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-1 px-4 rounded">
                           <button
                             onClick={() => onManagerDelete(value.productId)}
                           >
@@ -232,7 +232,7 @@ function ProductCartComponent() {
                   ) : (
                     <>
                       <div className="mt-5">
-                        <div className="mt-3 text-center shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <div className="mt-3 text-center shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-1 px-4 rounded">
                           <button
                             onClick={() =>
                               onBuy(
@@ -246,7 +246,7 @@ function ProductCartComponent() {
                             BUY
                           </button>
                         </div>
-                        <div className="text-center mt-2 shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        <div className="text-center mt-2 shadow bg-gray-800 hover:bg-teal-600 focus:shadow-outline focus:outline-none text-white font-bold py-1 px-4 rounded">
                           <button
                             onClick={() =>
                               onCustomerDelete(value.cartProductId)

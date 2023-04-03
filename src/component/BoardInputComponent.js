@@ -64,7 +64,7 @@ function BoardInputComponent() {
                 onChange={onTitle}
               />
               <p className="text-gray-600 text-xs italic">
-                Some tips - as long as needed
+              Please enter the title
               </p>
             </div>
           </div>
@@ -83,8 +83,7 @@ function BoardInputComponent() {
                 onChange={onMessage}
               ></textarea>
               <p className="text-gray-600 text-xs italic">
-                Re-size can be disabled by set by resize-none / resize-y /
-                resize-x / resize
+              Please enter the contents
               </p>
             </div>
           </div>

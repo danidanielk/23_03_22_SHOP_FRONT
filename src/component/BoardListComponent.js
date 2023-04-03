@@ -3,28 +3,29 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 function BoardListComponent() {
-  
   const [dataList, setDataList] = useState([]);
-  const [getToken] = useCookies(['accessTK'])
-  const token = getToken.accessTK
+  const [getToken] = useCookies(["accessTK"]);
+  const token = getToken.accessTK;
 
-  useEffect(()=>{
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/board/list", {
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        const getData = response.data;
+        console.log(getData);
+        setDataList(getData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-    axios.get("http://localhost:8080/board/list",{withCredentials:true , headers:{Authorization:`Bearer ${token}`}})
-    .then((response)=>{
-        const getData = response.data
-        console.log(getData)
-        setDataList(getData)
-    })
-    .catch((error)=>{
-        console.log(error)
-    })
-
-},[])
-
-const onButton=(boardId)=>{
-    window.location.assign(`/boardview?boardId=${boardId}`)
-}
+  const onButton = (boardId) => {
+    window.location.assign(`/boardview?boardId=${boardId}`);
+  };
 
   return (
     <>
@@ -41,7 +42,6 @@ const onButton=(boardId)=>{
                   <th className="text-left p-3 px-5">Title</th>
                   <th className="text-left p-3 px-5">phone</th>
                   <th className="text-left p-3 px-5 text-center">상태</th>
-              
                 </tr>
                 {dataList.map((value) => (
                   <tr
@@ -52,31 +52,19 @@ const onButton=(boardId)=>{
                       <div>{value.email}</div>
                     </td>
 
-                  
+                    <td className="p-3 px-5">
+                      <button onClick={() => onButton(value.boardId)}>
+                        {value.title}
+                      </button>
+                    </td>
 
-                  <td className="p-3 px-5">
-                    <button
-                    onClick={()=>onButton(value.boardId)}
-                    >
-                      {value.title}
-                    </button>
-                  </td>
+                    <td className="p-3 px-5">
+                      <div>{value.phone}</div>
+                    </td>
 
-                   
-                  <td className="p-3 px-5">
-                    <div>
-                      {value.phone}
-                    </div>
-                  </td>
-
-
-                  <td className="shadow bg-teal-500 hover:bg-teal-400 focus:shadow-outline focus:outline- text-white font-bold py-1 px-2 rounde text-center">
-                    <div>
-                      {value.state}
-                    </div>
-                  </td>
-
-                  
+                    <td className="shadow bg-teal-500 hover:bg-teal-400 focus:shadow-outline focus:outline- text-white font-bold py-1 px-2 rounde text-center">
+                      <div>{value.state}</div>
+                    </td>
                   </tr>
                 ))}
               </tbody>

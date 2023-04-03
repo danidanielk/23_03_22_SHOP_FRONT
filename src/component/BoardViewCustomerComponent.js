@@ -108,8 +108,7 @@ function BoardViewCustomerComponent() {
                 {data.answer}
               </div>
               <p className="text-gray-600 text-xs italic">
-                Re-size can be disabled by set by resize-none / resize-y /
-                resize-x / resize
+                
               </p>
             </div>
           </div>

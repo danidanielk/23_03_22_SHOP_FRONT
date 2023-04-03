@@ -4,8 +4,8 @@ import { useCookies } from "react-cookie";
 import { useLocation } from "react-router-dom";
 
 function ListAllComponent() {
-  const [getToken] = useCookies(['accessTK'])
-  const token = getToken.accessTK
+  const [getToken] = useCookies(["accessTK"]);
+  const token = getToken.accessTK;
 
   const click = (productId) => {
     window.location.assign(`/productdetail/?productId=${productId}`);
@@ -18,7 +18,10 @@ function ListAllComponent() {
 
   useEffect(() => {
     axios
-      .post(`http://localhost:8080/product/listall`, { withCredentials: true , headers:{Authorization:`Bearer ${token}`} })
+      .post(`http://localhost:8080/product/listall`, {
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         const getDataList = response.data;
         setDataList(getDataList);

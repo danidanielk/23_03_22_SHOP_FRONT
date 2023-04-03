@@ -9,8 +9,8 @@ function ModifyMember() {
   const [password2, setPassword2] = useState("");
   const [phone, setPhone] = useState("");
   const [password3, setPassword3] = useState("");
-  const [getToken] = useCookies(["accessTK"])
-  const token = getToken.accessTK
+  const [getToken] = useCookies(["accessTK"]);
+  const token = getToken.accessTK;
 
   const onPassword3 = (e) => {
     setPassword3(e.target.value);
@@ -37,7 +37,7 @@ function ModifyMember() {
     axios
       .get("http://localhost:8080/member/modify/data", {
         withCredentials: true,
-        headers:{Authorization:`Bearer ${token}`}
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         const getData = response.data;
@@ -63,7 +63,10 @@ function ModifyMember() {
       axios
         .patch("http://localhost:8080/member/modify", blob, {
           withCredentials: true,
-          headers: { "Content-Type": "application/json" ,Authorization:`Bearer ${token}`},
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         })
 
         .then((Response) => {
@@ -78,15 +81,14 @@ function ModifyMember() {
     }
   };
 
-  const onButton2 = (memberId,password3) => {
+  const onButton2 = (memberId, password3) => {
     if (!password3) {
       console.log(memberId);
       alert("현재 비밀번호를 입력해주세요");
     } else {
-
       const formData = new FormData();
       formData.append("password", password3);
-      formData.append("memberId",memberId)
+      formData.append("memberId", memberId);
       // console.log(password3)
 
       // const jsonData = { password: password3 };
@@ -94,14 +96,13 @@ function ModifyMember() {
       // const blob = new Blob([json], { type: "application/json" });
 
       axios
-        .post(
-          `http://localhost:8080/member/modify/delete`,
-          formData,
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "multipart/form-data" ,Authorization:`Bearer ${token}`},
-          }
-        )
+        .post(`http://localhost:8080/member/modify/delete`, formData, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           console.log(response);
           alert("계정이 삭제되었습니다.");
@@ -174,7 +175,7 @@ function ModifyMember() {
             <button
               type="button"
               className="w-full h-12 rounded-lg bg-gray-600 text-gray-200 uppercase font-semibold hover:bg-red-700 text-gray-100 transition mb-4"
-              onClick={() => onButton2(data.memberId,password3)}
+              onClick={() => onButton2(data.memberId, password3)}
               // onClick={onButton2}
             >
               회원 탈퇴

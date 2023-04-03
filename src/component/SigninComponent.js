@@ -7,8 +7,8 @@ function SigninComponent() {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [phone, setPhone] = useState("");
-  const [getToken] = useCookies(["accessTK"]);
-  const token = getToken.accessTK;
+  // const [getToken] = useCookies(["accessTK"]);
+  // const token = getToken.accessTK;
 
   const onEmail = (e) => {
     setEmail(e.target.value);
@@ -46,7 +46,7 @@ function SigninComponent() {
     // formData.append("blob", blob);
     axios
       .post("http://localhost:8080/member/signin", blob, {
-        headers: { "Content-Type": "application/json" ,Authorization:`Bearer ${token}`},
+        headers: { "Content-Type": "application/json"},
         withCredentials: true,
       })
       // axios.post("http://localhost:8080/member/signin", blob,  { headers: { "Content-Type": "application/json" }})

@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Cookies, useCookies } from "react-cookie";
-import Address from "./Address";
 
-function Nev() {
+function Nev2() {
+  const [getToken] = useCookies(["accessTK"]);
+  const [token , setToken] = useState('')
 
-  const [getToken] = useCookies(["accessTK"])
-  const token =getToken.accessTK
+  useEffect(()=>{
+    setToken(getToken.accessTK)
+    console.log(token)
+  },[getToken.accessTK])
 
 
   const onList = () => {
@@ -14,16 +17,15 @@ function Nev() {
   };
 
   const onCart = () => {
-    
-    
     axios
-    .get("http://localhost:8080/member/auth", { withCredentials: true ,headers:{Authorization:`Bearer ${token}`}})
+      .get("http://localhost:8080/member/auth", {
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         const authData = response.data;
         const MemberId = authData.memberId;
         const auth = authData.auth;
- 
-        
 
         console.log(authData);
         window.location.assign(`/cart?memberId=${MemberId}&auth=${auth}`);
@@ -33,16 +35,16 @@ function Nev() {
       })
       .catch((error) => {
         console.log(error);
+        console.log(token)
       });
   };
 
-
-  const onLogout=()=>{
-    const cookie = new Cookies()
-    cookie.remove("accessTK")
-    cookie.remove("refreshTK")
-    window.location.assign("/")
-  }
+  const onLogout = () => {
+    const cookie = new Cookies();
+    cookie.remove("accessTK");
+    cookie.remove("refreshTK");
+    window.location.assign("/");
+  };
 
   return (
     <>
@@ -182,11 +184,7 @@ function Nev() {
                       d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
                     />
                   </svg>
-                  <button
-                  onClick={onLogout}
-                  >
-                    Logout
-                     </button>
+                  <button onClick={onLogout}>Logout</button>
                 </li>
                 {/*  */}
 
@@ -194,10 +192,9 @@ function Nev() {
               </ul>
             </div>
           </div>
-       
         </nav>
       </>
     </>
   );
 }
-export default Nev;
+export default Nev2;

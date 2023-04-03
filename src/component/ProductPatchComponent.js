@@ -73,17 +73,19 @@ function ProductPatchComponent() {
     const blob = new Blob([json], { type: "application/json" });
     formData.append("formData", blob);
     formData.append("productImage", selectFile);
+    formData.append("productId",productId)
 
     axios
       .patch(
-        `http://localhost:8080/manager/patch/${productId}`,
+        `http://localhost:8080/manager/patch`,
         formData,
         { withCredentials: true ,
-        headers: { "Content-Type": "multipart/form-data",Authorization:{Authorization:`Bearer ${token}`} } },
+        headers: { "Content-Type": "multipart/form-data",Authorization:`Bearer ${token}` } },
    
       )
       .then((value) => {
         console.log(value);
+        console.log(token)
         window.location.assign(`/cart?memberId=${memberId}&auth=${auth}`);
       })
       .catch((error) => {
@@ -171,7 +173,7 @@ function ProductPatchComponent() {
       {/*  */}
       <div className="mt-12 text-center border-2 mb-6 py-2 px-3 rounded-2xl bg-gray-900">
         <button className="text-white hover:text-[#FF6A3D]" onClick={onSubmit}>
-          상품 등록
+          수정 완료
         </button>
       </div>
       {/*  */}
